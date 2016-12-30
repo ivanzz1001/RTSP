@@ -14,11 +14,12 @@
 
 #include "rtsp_demo.h"
 
-#ifndef __WINDOWS__
-#define O_BINARY 0
-#endif
 
 #include <signal.h>
+
+#ifndef O_BINARY
+ #define O_BINARY 0 
+ #endif
 static int flag_run = 1;
 static void sig_proc(int signo)
 {

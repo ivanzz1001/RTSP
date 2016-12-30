@@ -11,11 +11,8 @@
 
 #include "rtp_enc.h"
 
-#ifdef __WINDOWS__
-#include <winsock2.h>
-#else
+
 #include <arpa/inet.h>
-#endif
 
 struct rtphdr
 {

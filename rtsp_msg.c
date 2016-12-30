@@ -13,12 +13,7 @@
 
 #include "comm.h"
 #include "rtsp_msg.h"
-
-#ifdef __WINDOWS__
-#include <winsock2.h>
-#else
 #include <arpa/inet.h>
-#endif
 
 void *rtsp_mem_alloc (int size)
 {

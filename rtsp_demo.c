@@ -12,16 +12,12 @@
 #include <errno.h>
 #include <stdint.h>
 
-#ifdef __WINDOWS__
-#include <winsock2.h>
-typedef int socklen_t;
-#define MSG_DONTWAIT 0
-#else
+
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <netinet/in.h>
-#endif
+
 
 #include "comm.h"
 #include "rtsp_demo.h"
@@ -180,10 +176,7 @@ int rtsp_start (int port)
 	struct sockaddr_in inaddr;
 	int sockfd, ret;
 	
-#ifdef __WINDOWS__
-	WSADATA ws;
-	WSAStartup(MAKEWORD(2,2), &ws);
-#endif
+
 	memset(&demo, 0, sizeof(demo));
 
 	ret = socket(AF_INET, SOCK_STREAM, 0);
@@ -887,7 +880,7 @@ static const uint8_t *rtsp_find_h264_nalu (const uint8_t *buff, int len, uint8_t
 				*size = (buff - s);
 				return s;
 			}
-			bbuff+= 3;
+			buff+= 3;
 			len  -= 3;
 			continue;
 		}
@@ -901,11 +894,11 @@ static const uint8_t *rtsp_find_h264_nalu (const uint8_t *buff, int len, uint8_t
 				*size = (buff - s);
 				return s;
 			}
-			bbuff+= 4;
+			buff+= 4;
 			len  -= 4;
 			continue;
 		}
-		bbuff++;
+		buff++;
 		len --;
 	}
 	if (!s)
